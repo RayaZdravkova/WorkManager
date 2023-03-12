@@ -1,0 +1,22 @@
+﻿@using WorkManager.Business.ViewModels.Employee;
+@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 class="mb-5">Details</h1>
+
+    <p class="mb-5"><span class="fw-bold mr-5">Name: </span>@Model.FullName</p>
+
+    <p class="mb-5"><span class="fw-bold">Email: </span>@Model.Email</p>
+
+    <p class="mb-5"><span class="fw-bold">Phone number: </span>@Model.PhoneNumber</p>
+
+    <p class="mb-5"><span class="fw-bold">Date of birth: </span>@Model.DateOfBirth</p>
+
+    <p class="mb-5"><span class="fw-bold">Monthly salary: </span>@Model.MonthlySalary</p>
+    <a asp-action="Index">Back to List</a>
+
+</div>
