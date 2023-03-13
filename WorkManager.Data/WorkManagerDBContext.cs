@@ -12,6 +12,7 @@ namespace WorkManager.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Entities.Task> Tasks { get; set; }
+        public DbSet<Sprint> Sprints { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

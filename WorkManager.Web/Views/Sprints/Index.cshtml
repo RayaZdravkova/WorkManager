@@ -1,0 +1,57 @@
+﻿@using WorkManager.Business.ViewModels.Sprint;
+@model List<SprintViewModel>
+@{
+    ViewData["Title"] = "List sprints";
+}
+
+<div class="mt-5 mb-2">
+    <a asp-action="Create">Create new</a>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Start date
+        </th>
+        <th>
+            End date
+        </th>
+        <th>
+            Target
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+    @foreach (var sprint in Model)
+    {
+
+        <tr>
+            <td>
+                @sprint.Title
+            </td>
+            <td>
+                @sprint.StartDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @sprint.EndDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @sprint.Target
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@sprint.Id">Update</a> |
+                <a asp-action="Details" asp-route-id="@sprint.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@sprint.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@if (TempData["ValidationMessage"] is not null)
+{
+    <p class="text-danger">@TempData["ValidationMessage"]</p>
+}

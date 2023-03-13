@@ -26,7 +26,7 @@ namespace WorkManager.Data.Repositories
 
             if (foundEntity == null)
             {
-                throw new ArgumentException("Entity was not found!");
+                throw new ArgumentException("Item was not found!");
             }
 
             context.Entry(foundEntity).CurrentValues.SetValues(entity);
@@ -41,7 +41,7 @@ namespace WorkManager.Data.Repositories
 
             if (entityForDeletion == null)
             {
-                throw new ArgumentException("Entity was not found!");
+                throw new ArgumentException("Item was not found!");
             }
 
             context.Set<T>().Remove(entityForDeletion);

@@ -9,5 +9,9 @@ namespace WorkManager.Business.Services.Interfaces
         Task<List<EmployeeViewModel>> GetAllAsync();
         Task<EmployeeViewModel?> GetByIdAsync(int id);
         Task<EmployeeViewModel> UpdateAsync(EmployeeViewModel model);
+        Task<List<EmployeeViewModel>> GetTopFiveMostProductiveForMonthAsync();
+        Task<List<EmployeeViewModel>> GetTopThreeEmployeesWithMostUnfinishedTasksAsync();
+
+
     }
 }

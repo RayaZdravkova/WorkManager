@@ -1,0 +1,28 @@
+﻿@using WorkManager.Business.ViewModels.Employee;
+@model List<EmployeeViewModel>
+@{
+    ViewData["Title"] = "Top three employees with most unfinished tasks right now.";
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Full name
+        </th>
+        <th>
+            Email
+        </th>
+    </tr>
+    @foreach (var employee in Model)
+    {
+
+        <tr>
+            <td>
+                @employee.FullName
+            </td>
+            <td>
+                @employee.Email
+            </td>
+        </tr>
+    }
+</table>

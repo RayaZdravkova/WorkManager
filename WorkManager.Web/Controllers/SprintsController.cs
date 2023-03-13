@@ -1,33 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WorkManager.Business.Services.Interfaces;
-using WorkManager.Business.ViewModels.Employee;
+using WorkManager.Business.ViewModels.Sprint;
 
 namespace WorkManager.Web.Controllers
 {
-    public class EmployeesController : Controller
+    public class SprintsController : Controller
     {
-        private readonly IEmployeeService _employeeService;
+        private readonly ISprintService _sprintService;
 
-        public EmployeesController(IEmployeeService employeeService)
+        public SprintsController(ISprintService sprintService)
         {
-            _employeeService = employeeService;
+            _sprintService = sprintService;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<EmployeeViewModel> allEmployees = await _employeeService.GetAllAsync();
-            return View(allEmployees);
+            List<SprintViewModel> allSprints = await _sprintService.GetAllAsync();
+            return View(allSprints);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            EmployeeViewModel? employee = await _employeeService.GetByIdAsync(id);
-            if (employee is null)
+            SprintViewModel? sprint = await _sprintService.GetByIdAsync(id);
+            if (sprint is null)
             {
-                TempData["ValidationMessage"] = "Employee not found!";
+                TempData["ValidationMessage"] = "Sprint not found!";
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(sprint);
         }
 
         public IActionResult Create()
@@ -36,33 +36,7 @@ namespace WorkManager.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeCreateViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["ValidationMessage"] = "Invalid data!";
-                return View(model);
-            }
-
-            await _employeeService.CreateAsync(model);
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> Update(int id)
-        {
-            EmployeeViewModel? model = await _employeeService.GetByIdAsync(id);
-
-            if (model is null) 
-            {
-                TempData["ValidationMessage"] = "Employee not found!";
-                return RedirectToAction("Index");
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Update(EmployeeViewModel model)
+        public async Task<IActionResult> Create(SprintCreateViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -72,7 +46,42 @@ namespace WorkManager.Web.Controllers
 
             try
             {
-                await _employeeService.UpdateAsync(model);
+                await _sprintService.CreateAsync(model);
+            }
+            catch (ArgumentException ex)
+            {
+                TempData["ValidationMessage"] = ex.Message;
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            SprintViewModel? model = await _sprintService.GetByIdAsync(id);
+
+            if (model is null)
+            {
+                TempData["ValidationMessage"] = "Sprint not found!";
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(SprintViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ValidationMessage"] = "Invalid data!";
+                return View(model);
+            }
+
+            try
+            {
+                await _sprintService.UpdateAsync(model);
             }
             catch (ArgumentException ex)
             {
@@ -85,11 +94,11 @@ namespace WorkManager.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            EmployeeViewModel? model = await _employeeService.GetByIdAsync(id);
+            SprintViewModel? model = await _sprintService.GetByIdAsync(id);
 
             if (model is null)
             {
-                TempData["ValidationMessage"] = "Employee not found!";
+                TempData["ValidationMessage"] = "Sprint not found!";
                 return RedirectToAction("Index");
             }
 
@@ -101,7 +110,7 @@ namespace WorkManager.Web.Controllers
         {
             try
             {
-                await _employeeService.DeleteAsync(id);
+                await _sprintService.DeleteAsync(id);
             }
             catch (ArgumentException ex)
             {
@@ -110,18 +119,6 @@ namespace WorkManager.Web.Controllers
             }
 
             return RedirectToAction("Index");
-        }  
-        
-        public async Task<IActionResult> GetTopFiveMostProductiveForMonth()
-        {
-            var topFive = await _employeeService.GetTopFiveMostProductiveForMonthAsync();
-            return View(topFive);
-        }
-
-        public async Task<IActionResult> GetTopThreeEmployeesWithMostUnfinishedTasks()
-        {
-            var topThree = await _employeeService.GetTopThreeEmployeesWithMostUnfinishedTasksAsync();
-            return View(topThree);
         }
     }
 }

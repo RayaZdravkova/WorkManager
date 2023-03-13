@@ -11,9 +11,11 @@ builder.Services.AddDbContext<WorkManagerDBContext>(
     options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<ISprintRepository, SprintRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<ISprintService, SprintService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

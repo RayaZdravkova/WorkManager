@@ -35,10 +35,15 @@ namespace WorkManager.Data.Repositories
             }
 
             foundEntity.Assignee = assignee;
+            entity.DateOfCompletion = foundEntity.DateOfCompletion;
 
             if (foundEntity.DateOfCompletion is null && entity.Status == Enums.TaskStatus.Done)
             {
                 entity.DateOfCompletion = DateTime.Now;
+            }
+            else if (foundEntity.DateOfCompletion is not null && entity.Status != Enums.TaskStatus.Done)
+            {
+                entity.DateOfCompletion = null;
             }
 
             context.Entry(foundEntity).CurrentValues.SetValues(entity);

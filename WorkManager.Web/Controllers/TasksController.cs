@@ -33,6 +33,7 @@ namespace WorkManager.Web.Controllers
 
             if (task is null)
             {
+                TempData["ValidationMessage"] = "Task not found!";
                 return RedirectToAction("Index");
             }
 
@@ -84,6 +85,7 @@ namespace WorkManager.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["ValidationMessage"] = "Invalid data!";
                 return View(model);
             }
 
@@ -97,6 +99,7 @@ namespace WorkManager.Web.Controllers
 
             if (model is null)
             {
+                TempData["ValidationMessage"] = "Task not found!";
                 return RedirectToAction("Index");
             }
 
@@ -143,6 +146,7 @@ namespace WorkManager.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["ValidationMessage"] = "Invalid data!";
                 return View(model);
             }
 
@@ -150,8 +154,9 @@ namespace WorkManager.Web.Controllers
             {
                 await _taskService.UpdateAsync(model);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
+                TempData["ValidationMessage"] = ex.Message;
                 return RedirectToAction("Index");
             }
 
@@ -164,6 +169,7 @@ namespace WorkManager.Web.Controllers
 
             if (model is null)
             {
+                TempData["ValidationMessage"] = "Task not found!";
                 return RedirectToAction("Index");
             }
 
@@ -177,8 +183,9 @@ namespace WorkManager.Web.Controllers
             {
                 await _taskService.DeleteAsync(id);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
+                TempData["ValidationMessage"] = ex.Message;
                 return RedirectToAction("Index");
             }
 

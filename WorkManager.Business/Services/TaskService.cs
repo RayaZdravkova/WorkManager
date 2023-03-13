@@ -31,6 +31,11 @@ namespace WorkManager.Business.Services
 
             entity.Assignee = assignee;
 
+            if(model.Status == Data.Enums.TaskStatus.Done)
+            {
+                entity.DateOfCompletion = DateTime.Now;
+            }
+
             Data.Entities.Task createdTask = await _taskRepository.CreateAsync(entity);
 
             return _mapper.Map<TaskCreateViewModel>(createdTask);

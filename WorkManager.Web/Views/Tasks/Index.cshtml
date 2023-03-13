@@ -1,11 +1,51 @@
 ﻿@using WorkManager.Business.ViewModels.Task;
 @model List<TaskViewModel>
+@{
+    ViewData["Title"] = "List tasks";
+}
 
-<ul>
-    @foreach (var item in Model)
+<div class="mt-5 mb-2">
+    <a asp-action="Create">Create new</a>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Due date
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+    @foreach (var task in Model)
     {
-        <li>
-            @item.Title
-        </li>
+
+        <tr>
+            <td>
+                @task.Title
+            </td>
+            <td>
+                @(task.DueDate.HasValue ? task.DueDate.Value.ToString("dd/MM/yyyy") : "-")
+            </td>
+            <td>
+                @task.Status
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@task.Id">Update</a> |
+                <a asp-action="Details" asp-route-id="@task.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@task.Id">Delete</a>
+            </td>
+        </tr>
     }
-</ul>
+</table>
+
+@if (TempData["ValidationMessage"] is not null)
+{
+    <p class="text-danger">@TempData["ValidationMessage"]</p>
+}

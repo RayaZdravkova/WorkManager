@@ -1,0 +1,21 @@
+﻿@using WorkManager.Business.ViewModels.Sprint;
+@model SprintViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 class="mb-5">Details</h1>
+
+    <p class="mb-5"><span class="fw-bold mr-5">Title: </span>@Model.Title</p>
+
+    <p class="mb-5"><span class="fw-bold">Target: </span>@Model.Target</p>
+
+    <p class="mb-5"><span class="fw-bold">Start date: </span>@(Model.StartDate.ToString("dd/MM/yyyy"))</p>
+
+    <p class="mb-5"><span class="fw-bold">End date: </span>@(Model.EndDate.ToString("dd/MM/yyyy"))</p>
+
+    <a asp-action="Index">Back to List</a>
+
+</div>
