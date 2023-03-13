@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WorkManager.Data.Enums;
 
 namespace WorkManager.Data.Entities
 {
@@ -13,5 +14,7 @@ namespace WorkManager.Data.Entities
 
         public Employee Assignee { get; set; }
         public DateTime? DueDate { get; set; }
+        public Enums.TaskStatus Status { get; set; }
+        public DateTime? DateOfCompletion { get; set; }
     }
 }

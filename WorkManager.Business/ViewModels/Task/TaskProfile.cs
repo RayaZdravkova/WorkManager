@@ -17,6 +17,8 @@ namespace WorkManager.Business.ViewModels.Task
 
             CreateMap<Data.Entities.Task, TaskViewModel>()
                 .ForMember(tvm => tvm.AssigneeId, member => member.MapFrom(t => t.Assignee.Id));
+
+            CreateMap<TaskViewModel, TaskDetailsViewModel>();
         }
     }
 }

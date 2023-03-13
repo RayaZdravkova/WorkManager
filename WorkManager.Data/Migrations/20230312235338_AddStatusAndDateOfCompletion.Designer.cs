@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkManager.Data;
 
@@ -11,9 +12,10 @@ using WorkManager.Data;
 namespace WorkManager.Data.Migrations
 {
     [DbContext(typeof(WorkManagerDBContext))]
-    partial class WorkManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230312235338_AddStatusAndDateOfCompletion")]
+    partial class AddStatusAndDateOfCompletion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

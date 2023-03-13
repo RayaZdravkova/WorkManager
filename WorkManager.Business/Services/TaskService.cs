@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WorkManager.Business.Services.Interfaces;
 using WorkManager.Business.ViewModels.Task;
+using WorkManager.Data.Entities;
 using WorkManager.Data.Repositories.Interfaces;
 
 namespace WorkManager.Business.Services
@@ -8,16 +9,27 @@ namespace WorkManager.Business.Services
     public class TaskService : ITaskService
     {
         private readonly ITaskRepository _taskRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
-        public TaskService(ITaskRepository taskRepository, IMapper mapper)
+        public TaskService(ITaskRepository taskRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
             _taskRepository = taskRepository;
+            _employeeRepository = employeeRepository;
             _mapper = mapper;
         }
 
         public async Task<TaskCreateViewModel> CreateAsync(TaskCreateViewModel model)
         {
             Data.Entities.Task entity = _mapper.Map<Data.Entities.Task>(model);
+
+            Employee? assignee = await _employeeRepository.GetByIdAsync(model.AssigneeId);
+
+            if(assignee is null)
+            {
+                throw new ArgumentException("Invalid assignee!");
+            }
+
+            entity.Assignee = assignee;
 
             Data.Entities.Task createdTask = await _taskRepository.CreateAsync(entity);
 
@@ -28,12 +40,21 @@ namespace WorkManager.Business.Services
         {
             Data.Entities.Task entity = _mapper.Map<Data.Entities.Task>(model);
 
+            Employee? assignee = await _employeeRepository.GetByIdAsync(model.AssigneeId);
+
+            if (assignee is null)
+            {
+                throw new ArgumentException("Invalid assignee!");
+            }
+
+            entity.Assignee = assignee;
+
             Data.Entities.Task updatedTask = await _taskRepository.UpdateAsync(entity);
 
             return _mapper.Map<TaskViewModel>(updatedTask);
         }
 
-        public async Task DeleteAsync(int id)
+        public async System.Threading.Tasks.Task DeleteAsync(int id)
         {
             await _taskRepository.DeleteAsync(id);
         }

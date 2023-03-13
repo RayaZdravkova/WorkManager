@@ -6,7 +6,7 @@ namespace WorkManager.Data.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        private readonly WorkManagerDBContext context;
+        protected readonly WorkManagerDBContext context;
         public BaseRepository(WorkManagerDBContext context)
         {
             this.context = context;
@@ -22,7 +22,7 @@ namespace WorkManager.Data.Repositories
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            T? foundEntity = await context.Set<T>().FindAsync(entity.Id);
+            T? foundEntity = await GetByIdAsync(entity.Id);
 
             if (foundEntity == null)
             {
@@ -37,7 +37,7 @@ namespace WorkManager.Data.Repositories
 
         public virtual async System.Threading.Tasks.Task DeleteAsync(int id)
         {
-            T? entityForDeletion = await context.Set<T>().FindAsync(id);
+            T? entityForDeletion = await GetByIdAsync(id);
 
             if (entityForDeletion == null)
             {

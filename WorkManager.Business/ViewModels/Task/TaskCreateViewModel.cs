@@ -18,5 +18,7 @@ namespace WorkManager.Business.ViewModels.Task
 
         public int AssigneeId { get; set; }
         public DateTime? DueDate { get; set; }
+
+        public Data.Enums.TaskStatus Status { get; set; }
     }
 }

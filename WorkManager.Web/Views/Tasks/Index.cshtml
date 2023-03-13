@@ -1,0 +1,11 @@
+﻿@using WorkManager.Business.ViewModels.Task;
+@model List<TaskViewModel>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.Title
+        </li>
+    }
+</ul>

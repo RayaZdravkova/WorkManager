@@ -14,7 +14,7 @@
 
     <p class="mb-5"><span class="fw-bold">Phone number: </span>@Model.PhoneNumber</p>
 
-    <p class="mb-5"><span class="fw-bold">Date of birth: </span>@Model.DateOfBirth</p>
+    <p class="mb-5"><span class="fw-bold">Date of birth: </span>@(Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("dd/MM/yyyy") : "-")</p>
 
     <p class="mb-5"><span class="fw-bold">Monthly salary: </span>@Model.MonthlySalary</p>
     <a asp-action="Index">Back to List</a>

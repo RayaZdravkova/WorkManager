@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WorkManager.Business.ViewModels.Employee;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace WorkManager.Business.ViewModels.Task
 {
-    public class TaskViewModel
+    public class TaskDetailsViewModel
     {
         public int Id { get; set; }
 
@@ -14,9 +18,10 @@ namespace WorkManager.Business.ViewModels.Task
         [MinLength(20)]
         public string? Description { get; set; }
 
-        public int AssigneeId { get; set; }
+        public string AssigneeName { get; set; }
         public DateTime? DueDate { get; set; }
         public Data.Enums.TaskStatus Status { get; set; }
+
         public DateTime? DateOfCompletion { get; set; }
     }
 }

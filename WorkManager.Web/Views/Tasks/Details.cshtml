@@ -1,0 +1,25 @@
+﻿@using WorkManager.Business.ViewModels.Task;
+@model TaskDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 class="mb-5">Details</h1>
+
+    <p class="mb-5"><span class="fw-bold mr-5">Title: </span>@Model.Title</p>
+
+    <p class="mb-5"><span class="fw-bold">Description: </span>@Model.Description</p>
+
+    <p class="mb-5"><span class="fw-bold">Assignee: </span>@Model.AssigneeName</p>
+
+    <p class="mb-5"><span class="fw-bold">Status: </span>@Model.Status</p>
+
+    <p class="mb-5"><span class="fw-bold">Due date: </span>@(Model.DueDate.HasValue ? Model.DueDate.Value.ToString("dd/MM/yyyy") : "-")</p>
+
+    <p class="mb-5"><span class="fw-bold">Date of completion: </span>@(Model.DateOfCompletion.HasValue ? Model.DateOfCompletion.Value.ToString("dd/MM/yyyy") : "-")</p>
+
+    <a asp-action="Index">Back to List</a>
+
+</div>
